@@ -12,10 +12,10 @@ INSERT INTO Hotel VALUES("LúxusHótel", "Stykkishólmur", "Ullarstígur 19", "i
 CREATE TABLE Room (
     HotelName VARCHAR(255),
     HotelAddress VARCHAR(255),
-    Number INT,
-    NrPerson INT,
-    Floor INT,
-    Price_Isk INT,
+    Number INT NOT NULL,
+    NrPerson INT NOT NULL,
+    Floor INT NOT NULL,
+    Price_Isk INT NOT NULL,
     PictureUrl VARCHAR(255),
     FOREIGN KEY (HotelName, HotelAddress)
     REFERENCES Hotel(HotelName, Address)
@@ -29,16 +29,28 @@ INSERT INTO Room VALUES("LúxusHótel", "Ullarstígur 19", 2, 2, 2, 5400, "img/r
 INSERT INTO Room VALUES("LúxusHótel", "Ullarstígur 19", 3, 3, 2, 5000, "img/room/sty6.jpg");
 
 CREATE TABLE Booking (
-    Arrival DATE,
-    Departure DATE,
-    nrPerson INT,
-    Rooms INT,
-    Owner VARCHAR(255)
+    BookingID INT PRIMARY KEY AUTOINCREMENT,
+    Arrival DATE NOT NULL,
+    Departure DATE NOT NULL,
+    nrPerson INT NOT NULL,
+    OwnerLastName VARCHAR(255) NOT NULL,
+    OwnerEmail VARCHAR(255) NOT NULL,
+    FOREIGN KEY (OwnerLastName, OwnerEmail)
+    REFERENCES User(LastName, Email)
+)
+
+CREATE TABLE BOOKING_ROOM (
+    BookingID INT NOT NULL,
+    HotelName VARCHAR(255) NOT NULL,
+    RoomNumber INT NOT NULL,
+    PRIMARY KEY(BookingID, HotelName, RoomNumber),
+    FOREIGN KEY(HotelName, RoomNumber)
+    REFERENCES()
 )
 
 CREATE TABLE User (
     FirstName VARCHAR(255),
     LastName VARCHAR(255),
     Email VARCHAR(255),
-    PhoneNr INT
+    PRIMARY KEY(LastName, Email)
 )

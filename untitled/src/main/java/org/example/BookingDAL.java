@@ -1,8 +1,10 @@
 package org.example;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import hotels.model.Room;
+
+import java.awt.print.Book;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookingDAL {
@@ -21,7 +23,43 @@ public class BookingDAL {
     }
 
     public static List<Booking> getBookings(User user){
-        return null;
+        List<Booking> bookings = new ArrayList<>();
+        if(connection == null) Connect();
+        try {
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Booking WHERE OwnerLastName=? AND OwnerEmail=?");
+            stmt.setString(1, user.getLastName());
+            stmt.setString(2, user.getEmail());
+            ResultSet results = stmt.executeQuery();
+            while(results.next()){
+                PreparedStatement rmstmt = connection.prepareStatement(
+                        "SELECT * FROM Room WHERE HotelName, Number EXIST(" +
+                                "SELECT * FROM Booking_Room WHERE BookingID=?)");
+                rmstmt.setInt(1,results.getInt(1));
+                ResultSet rmResults = rmstmt.executeQuery();
+                List<HotelRoom> rooms = new ArrayList<>();
+                while(rmResults.next()){
+                    HotelRoom room = new HotelRoom(
+                            rmResults.getInt(3),
+                            rmResults.getInt(4),
+                            rmResults.getInt(5),
+                            rmResults.getInt(6),
+                            rmResults.getString(7)
+                    );
+                    rooms.add(room);
+                }
+                Booking newBooking = new Booking(
+                        results.getInt(1),
+                        results.getDate(2),
+                        results.getDate(3),
+                        results.getInt(4),
+                        rooms
+                );
+                bookings.add(newBooking);
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return bookings;
     }
 
 }

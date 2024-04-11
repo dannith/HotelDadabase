@@ -9,12 +9,14 @@ public class User {
 
     private final int id;
     private String name;
+    private String lastName;
     private String email;
     private List<Booking> bookings;
 
-    public User(Integer id, String name, String email, List<Booking> bookings) {
+    public User(Integer id, String name, String lastName, String email, List<Booking> bookings) {
         this.id = id;
         this.name = name;
+        this.lastName = lastName;
         this.email = email;
         this.bookings = bookings;
     }
@@ -49,5 +51,9 @@ public class User {
 
     public void addBooking(Booking newBooking) {
         this.bookings.add(newBooking);
+    }
+
+    public String getLastName() {
+        return this.lastName;
     }
 }
