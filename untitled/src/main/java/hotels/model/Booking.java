@@ -6,13 +6,13 @@ import java.util.Date;
 
 
 public class Booking {
-    private DateTime arrival;
-    private DateTime departure;
+    private Date arrival;
+    private Date departure;
     private Integer nrPersons;
     private Room[] rooms;
     private User owner;
 
-    public Booking(DateTime arrival, DateTime departure, int nrPersons, Room[] rooms, User owner) {
+    public Booking(Date arrival, Date departure, int nrPersons, Room[] rooms, User owner) {
         this.arrival = arrival;
         this.departure = departure;
         this.nrPersons = nrPersons;
@@ -20,19 +20,19 @@ public class Booking {
         this.owner = owner;
     }
 
-    public DateTime getArrival() {
+    public Date getArrival() {
         return arrival;
     }
 
-    public void setArrival(DateTime arrival) {
+    public void setArrival(Date arrival) {
         this.arrival = arrival;
     }
 
-    public DateTime getDeparture() {
+    public Date getDeparture() {
         return departure;
     }
 
-    public void setDeparture(DateTime departure) {
+    public void setDeparture(Date departure) {
         this.departure = departure;
     }
 

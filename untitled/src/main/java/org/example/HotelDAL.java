@@ -30,13 +30,14 @@ public class HotelDAL {
             stmt.setString(1, location);
             ResultSet results = stmt.executeQuery();
             while(results.next()){
+                List<HotelRoom> rooms = getHotelRooms(results.getString(1), results.getString(3));
                 Hotel hotel = new Hotel(
                         results.getString(1),
                         results.getString(2),
                         results.getString(3),
                         results.getString(4),
                         results.getString(5),
-                        null);
+                        rooms);
                 hotels.add(hotel);
             }
         } catch (SQLException e) {
@@ -45,13 +46,13 @@ public class HotelDAL {
         return hotels;
     }
 
-    public static List<HotelRoom> getHotelRooms(Hotel hotel){
+    public static List<HotelRoom> getHotelRooms(String name, String address){
         List<HotelRoom> rooms = new ArrayList<>();
         if(connection == null) Connect();
         try {
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Room WHERE HotelName=? AND HotelAddress=?");
-            stmt.setString(1, hotel.getName());
-            stmt.setString(2, hotel.getAddress());
+            stmt.setString(1, name);
+            stmt.setString(2, address);
             ResultSet results = stmt.executeQuery();
             while(results.next()){
                 HotelRoom room = new HotelRoom(
