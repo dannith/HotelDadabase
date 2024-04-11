@@ -46,7 +46,6 @@ public class BookingDAL {
                             rmResults.getInt(5),
                             rmResults.getInt(6),
                             rmResults.getString(7)
-                            
                     );
                     rooms.add(room);
                 }
