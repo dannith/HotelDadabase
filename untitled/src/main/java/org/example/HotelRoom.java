@@ -1,6 +1,6 @@
 package org.example;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /******************************************************************************
  *  Nafn    : Lilja Kolbrún Schopka
@@ -29,7 +29,7 @@ public class HotelRoom {
         this.pictureURL = pictureURL;
     }
 
-    public boolean isAvailable(LocalDateTime checkIn, LocalDateTime checkOut) {
+    public boolean isAvailable(LocalDate checkIn, LocalDate checkOut) {
         return true;
     }
 
