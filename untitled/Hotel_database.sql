@@ -49,7 +49,7 @@ CREATE TABLE Booking_Room (
     RoomNumber INT NOT NULL,
     PRIMARY KEY(BookingID, HotelName, RoomNumber),
     FOREIGN KEY(HotelName, RoomNumber)
-    REFERENCES Room(HseleotelName, Number)
+    REFERENCES Room(HotelName, Number)
     FOREIGN KEY(BookingID)
     REFERENCES Booking(BookingID)
 );
@@ -75,20 +75,35 @@ select * from Room as r
 	join Booking as b ON (b.BookingID = br.BookingID)
 	where (b.arrival NOT BETWEEN ? AND ?) 
 	AND (b.departure NOT BETWEEN ? AND ?)
-	AND (? BETWEEN b.arrival AND b.departure)
-	AND (? BETWEEN b.arrival AND b.departure)
+    AND NOT (b.arrival > ? AND b.departure < ?)
 	
 select * from Room as r 
 	join Hotel as h ON ((r.HotelName, r.HotelAddress) = (h.HotelName, h.Address)) 
 	join Booking_Room as br ON ((br.HotelName, br.RoomNumber) = (r.HotelName, r.Number)) 
 	join Booking as b ON (b.BookingID = br.BookingID)
+	WHERE h.HotelName = 'LúxusHótel' AND h.Address = 'Ullarstígur 19';
 	where (b.arrival > '2024-05-15' AND b.departure < '2024-0-27');
 
 
-select * from Room as r 
+select b.arrival, b.departure from Room as r
 	join Hotel as h ON ((r.HotelName, r.HotelAddress) = (h.HotelName, h.Address)) 
 	join Booking_Room as br ON ((br.HotelName, br.RoomNumber) = (r.HotelName, r.Number)) 
 	join Booking as b ON (b.BookingID = br.BookingID)
-	where('2024-06-15' BETWEEN b.arrival AND b.departure)
-	AND ('2024-06-27' BETWEEN b.arrival AND b.departure);
+	where (('2024-05-15' BETWEEN b.arrival AND b.departure)
+	and ('2024-05-27' BETWEEN b.arrival AND b.departure));
+
+select b.arrival, b.departure from Room as r
+    join Hotel as h ON ((r.HotelName, r.HotelAddress) = (h.HotelName, h.Address))
+    join Booking_Room as br ON ((br.HotelName, br.RoomNumber) = (r.HotelName, r.Number))
+    join Booking as b ON (b.BookingID = br.BookingID)
+    WHERE NOT (b.arrival > '2024-05-15' AND b.departure < '2024-05-27')
+
+select b.arrival, b.departure from Room as r
+    join Hotel as h ON ((r.HotelName, r.HotelAddress) = (h.HotelName, h.Address))
+    join Booking_Room as br ON ((br.HotelName, br.RoomNumber) = (r.HotelName, r.Number))
+    join Booking as b ON (b.BookingID = br.BookingID)
+    where (b.arrival NOT BETWEEN '2024-02-15' AND '2024-02-27')
+    AND (b.departure NOT BETWEEN '2024-02-15' AND '2024-02-27')
+    AND NOT (b.arrival > '2024-02-15' AND b.departure < '2024-02-27')
+    AND (h.HotelName, h.Address) = ('LúxusHótel', 'Ullarstígur 19');
 
