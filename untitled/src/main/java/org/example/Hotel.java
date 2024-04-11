@@ -1,6 +1,6 @@
 package org.example;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 /******************************************************************************
@@ -42,7 +42,7 @@ public class Hotel {
         return this.address;
     }
 
-    public List<HotelRoom> getAvailableRooms(int persons, LocalDateTime checkIn, LocalDateTime checkOut) {
+    public List<HotelRoom> getAvailableRooms(int persons, LocalDate checkIn, LocalDate checkOut) {
         return null;
     }
 
