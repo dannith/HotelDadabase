@@ -4,6 +4,8 @@ import hotels.model.Room;
 
 import java.awt.print.Book;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,10 +49,13 @@ public class BookingDAL {
                     );
                     rooms.add(room);
                 }
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+                String arrival =  results.getString("Arrival");
+                String departure =  results.getString("Arrival");
                 Booking newBooking = new Booking(
                         results.getInt(1),
-                        results.getDate("Arrival").toLocalDate(),
-                        results.getDate("Departure").toLocalDate(),
+                        LocalDate.parse(arrival, formatter),
+                        LocalDate.parse(departure, formatter),
                         results.getInt(4),
                         rooms
                 );
