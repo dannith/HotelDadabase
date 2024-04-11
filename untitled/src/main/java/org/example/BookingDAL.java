@@ -32,8 +32,8 @@ public class BookingDAL {
             ResultSet results = stmt.executeQuery();
             while(results.next()){
                 PreparedStatement rmstmt = connection.prepareStatement(
-                        "SELECT * FROM Room WHERE HotelName, Number EXIST(" +
-                                "SELECT * FROM Booking_Room WHERE BookingID=?)");
+                        "SELECT * FROM Room WHERE (HotelName, Number) IN(" +
+                                "SELECT HotelName, RoomNumber FROM Booking_Room WHERE BookingID=?)");
                 rmstmt.setInt(1,results.getInt(1));
                 ResultSet rmResults = rmstmt.executeQuery();
                 List<HotelRoom> rooms = new ArrayList<>();
@@ -49,8 +49,8 @@ public class BookingDAL {
                 }
                 Booking newBooking = new Booking(
                         results.getInt(1),
-                        results.getDate(2),
-                        results.getDate(3),
+                        results.getDate("Arrival").toLocalDate(),
+                        results.getDate("Departure").toLocalDate(),
                         results.getInt(4),
                         rooms
                 );

@@ -1,5 +1,6 @@
 package org.example;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -7,15 +8,15 @@ import java.util.List;
 public class Booking {
 
     private int bookingID;
-    private Date checkIn;
-    private Date checkOut;
+    private LocalDate checkIn;
+    private LocalDate checkOut;
     private List<HotelRoom> rooms;
     private int persons;
 
     /**
      * Aðeins BookingController á að nota þennan constructor
      */
-    public Booking(int id, Date checkIn, Date checkOut, int nrPers, List<HotelRoom> rooms){
+    public Booking(int id, LocalDate checkIn, LocalDate checkOut, int nrPers, List<HotelRoom> rooms){
         this.bookingID = id;
         this.checkIn = checkIn;
         this.checkOut = checkOut;

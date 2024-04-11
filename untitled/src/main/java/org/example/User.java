@@ -52,6 +52,9 @@ public class User {
     public void addBooking(Booking newBooking) {
         this.bookings.add(newBooking);
     }
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
+    }
 
     public String getLastName() {
         return this.lastName;

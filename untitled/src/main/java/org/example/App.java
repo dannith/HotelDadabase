@@ -12,6 +12,9 @@ public class App
                 System.out.println(room.getPrice());
             }
         }
+        User user = new User(1, "Gunni", "Arnar", "a@a.is", null);
+        user.setBookings(BookingDAL.getBookings(user));
+        System.out.println(user.getBookings().size());
     }
 }
 
