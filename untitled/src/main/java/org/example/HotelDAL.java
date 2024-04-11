@@ -46,6 +46,10 @@ public class HotelDAL {
         return hotels;
     }
 
+    public static List<HotelRoom> getHotelRooms(Hotel hotel){
+        return getHotelRooms(hotel.getName(), hotel.getAddress());
+    }
+
     public static List<HotelRoom> getHotelRooms(String name, String address){
         List<HotelRoom> rooms = new ArrayList<>();
         if(connection == null) Connect();

@@ -49,8 +49,14 @@ CREATE TABLE Booking_Room (
     RoomNumber INT NOT NULL,
     PRIMARY KEY(BookingID, HotelName, RoomNumber),
     FOREIGN KEY(HotelName, RoomNumber)
-    REFERENCES Room(HotelName, Number)
+    REFERENCES Room(HseleotelName, Number)
+    FOREIGN KEY(BookingID)
+    REFERENCES Booking(BookingID)
 );
+
+insert into Booking_Room VALUES(4, 'LúxusHótel', 2);
+insert into Booking_Room VALUES(4, 'LúxusHótel', 1);
+
 
 
 CREATE TABLE User (
@@ -61,3 +67,28 @@ CREATE TABLE User (
 );
 
 INSERT INTO User VALUES("Palli", "Arnar", "a@a.is");
+
+--aVAILABLEROOMS FOR DATE
+select * from Room as r 
+	join Hotel as h ON ((r.HotelName, r.HotelAddress) = (h.HotelName, h.Address)) 
+	join Booking_Room as br ON ((br.HotelName, br.RoomNumber) = (r.HotelName, r.Number)) 
+	join Booking as b ON (b.BookingID = br.BookingID)
+	where (b.arrival NOT BETWEEN ? AND ?) 
+	AND (b.departure NOT BETWEEN ? AND ?)
+	AND (? BETWEEN b.arrival AND b.departure)
+	AND (? BETWEEN b.arrival AND b.departure)
+	
+select * from Room as r 
+	join Hotel as h ON ((r.HotelName, r.HotelAddress) = (h.HotelName, h.Address)) 
+	join Booking_Room as br ON ((br.HotelName, br.RoomNumber) = (r.HotelName, r.Number)) 
+	join Booking as b ON (b.BookingID = br.BookingID)
+	where (b.arrival > '2024-05-15' AND b.departure < '2024-0-27');
+
+
+select * from Room as r 
+	join Hotel as h ON ((r.HotelName, r.HotelAddress) = (h.HotelName, h.Address)) 
+	join Booking_Room as br ON ((br.HotelName, br.RoomNumber) = (r.HotelName, r.Number)) 
+	join Booking as b ON (b.BookingID = br.BookingID)
+	where('2024-06-15' BETWEEN b.arrival AND b.departure)
+	AND ('2024-06-27' BETWEEN b.arrival AND b.departure);
+
