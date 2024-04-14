@@ -17,9 +17,20 @@ public class HotelRoom {
     private int RoomNumber;
     private int persons;
     private int price;
+
+    @Override
+    public String toString() {
+        return "HotelRoom{" +
+                "RoomNumber=" + RoomNumber +
+                ", persons=" + persons +
+                ", price=" + price +
+                ", floor=" + floor +
+                ", pictureURL='" + pictureURL +
+                '}';
+    }
+
     private int floor;
     private String pictureURL;
-    private Hotel hotel;
 
     public HotelRoom(int RoomNumber, int persons, int floor, int price, String pictureURL) {
         this.RoomNumber = RoomNumber;
@@ -29,8 +40,20 @@ public class HotelRoom {
         this.pictureURL = pictureURL;
     }
 
-    public boolean isAvailable(LocalDate checkIn, LocalDate checkOut) {
-        return true;
+    public int getRoomNumber() {
+        return RoomNumber;
+    }
+
+    public int getPersons() {
+        return persons;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public String getPictureURL() {
+        return pictureURL;
     }
 
     public int getPrice() {
